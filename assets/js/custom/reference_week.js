@@ -11,34 +11,33 @@ function initializeChart() {
         data: {
             datasets: [
                 {
-                    label: "Optimalwert",
+                    label: "Durchschnittswert letze Periode",
                     backgroundColor: 'green',
                     borderColor: 'green',
                     fill: false,
                     data: randomDataArray(7)
                 },
                 {
-                    label: "Soll",
+                    label: "Aktuelle Woche",
                     backgroundColor: 'red',
                     borderColor: 'red',
                     fill: false,
                     data: randomDataArray(7)
                 },
                 {
-                    label: "Ist",
-                    backgroundColor: 'yellow',
-                    borderColor: 'yellow',
+                    label: "Optimiert",
+                    backgroundColor: 'orange',
+                    borderColor: 'orange',
                     fill: false,
                     data: randomDataArray(7)
                 }
             ],
         },
 
-        // Configuration options go here
         options: {
             scales: {
                 yAxes: [{
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: 'linear',
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
@@ -46,15 +45,4 @@ function initializeChart() {
             }
         }
     });
-}
-
-function randomDataArray(length) { //Random number creator
-    var data = [];
-
-    for (var i = 0; i < length; i++) {
-        var current_number = Math.floor((Math.random() * 100) + 1);
-        data.push(current_number);
-    }
-
-    return data;
 }
