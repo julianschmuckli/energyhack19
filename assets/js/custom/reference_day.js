@@ -1,19 +1,14 @@
-$(document).ready(function () {
-    initializeChart();
-});
-
-function initializeChart() {
+function initDayChart(day) {
     $.getJSON("./data/reference.json", function (data) {
         var reference = [];
         var y_axis = [];
 
         data.forEach(function (current) {
             var time = new Date(current.time * 1000); //Get timestamp
-            var value = current.kw; //Get kW
+            var value = current.kw; //Get kWh
             reference.push({x: time, y: value});
 
-            var formatted_time = (time.getDate() + "").padStart(2, "0") + "." + ((time.getMonth() + 1) + "").padStart(2, "0") + "." + time.getFullYear()
-                + " " + (time.getHours() + "").padStart(2, "0") + ":" + (time.getMinutes() + "").padStart(2, "0");
+            var formatted_time = (time.getHours() + "").padStart(2, "0") + ":" + (time.getMinutes() + "").padStart(2, "0");
             y_axis.push(formatted_time);
         });
 
@@ -38,7 +33,7 @@ function showChart(labels, reference, current, optimal) {
         optimal = randomDataArray(7);
     }
 
-    var ctx = document.getElementById("chart-reference-week").getContext('2d');
+    var ctx = document.getElementById("chart-reference-day").getContext('2d');
     ctx.height = 500;
     var chart = new Chart(ctx, {
         type: 'line',

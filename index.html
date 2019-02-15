@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Energy Hack Days</title>
+    <title>Load Profile Shaping (LPS)</title>
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Energy Hack Days</a>
+    <a class="navbar-brand" href="#">Load Profile Shaping (LPS)</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,53 +32,70 @@
     </div>
 </nav>
 <main class="container">
-
     <div class="row">
         <div class="col-md-12">
             <div class="abstand card" id="parameter">
-            <h2>Parameter <span class="float-right"><i id="open-parameters" class="fa fa-chevron-down fa-rotate-0"></i></span>
-            </h2>
-            <div id="parameters-content">
-                <div class="form-group row">
-
-                    <div class="col-sm-2 col-form-label">
-                        <label for="alpha-input">Alpha: </label>
-                    </div>
-                    <div class="col-sm-10">
-                        <input class="form-control" value="0.5" type="text" id="alpha-input" />
-                    </div>
-
-                    <div class="col-sm-12"><input type="button" class="btn btn-primary" value="Refresh" /></div>
-
-
+                <h2>Parameter
+                    <span class="float-right">
+                        <i id="open-parameters" class="fa fa-chevron-down fa-rotate-0"></i>
+                    </span>
+                </h2>
+                <div id="parameters-content">
+                    <form class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            <label for="alpha-input">Alpha: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input class="form-control" value="0.5" type="text" id="alpha-input"/>
+                        </div>
+                        <br>
+                        <div class="col-sm-2 col-form-label">
+                            <label for="alpha-input">Jahreszeit: </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="season" autocomplete="off"> Winter
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="season" autocomplete="off"> Sommer
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top:15px;"><input type="button" class="btn btn-primary"
+                                                                               value="Refresh"/></div>
+                    </form>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-8 chart">
             <div class="abstand card">
-            <h2>Chart</h2>
-            <div class="chart-container">
-                <canvas id="chart-reference-week" width="400" height="200"></canvas>
-            </div>
+                <h2>Woche <span id="chart_week_title">08.01.2014 - 14.01.2014</span></h2>
+                <div class="chart-container">
+                    <canvas id="chart-reference-week" width="400" height="200"></canvas>
+                </div>
+                <h2>Tag <span id="chart_day_title">08.01.2014</span></h2>
+                <div class="chart-container">
+                    <canvas id="chart-reference-day" width="400" height="200"></canvas>
+                </div>
             </div>
         </div>
         <div class="col-md-4 einsparungen">
             <div class="abstand card">
-            <h2>Einsparungen</h2>
-            <br>
-            <h4>
-                Einsparungen pro Tag: <b>1.0.-</b>
-            </h4>
-            <h4>
-                Einsparungen pro Monat: <b>30.0.-</b>
-            </h4>
-            <h4>
-                Einsparungen pro Jahr: <b>360.0.-</b>
-            </h4>
+                <h2>Einsparungen</h2>
+                <br>
+                <h4>
+                    Einsparungen pro Tag: <b>1.0.-</b>
+                </h4>
+                <h4>
+                    Einsparungen pro Monat: <b>30.0.-</b>
+                </h4>
+                <h4>
+                    Einsparungen pro Jahr: <b>360.0.-</b>
+                </h4>
             </div>
         </div>
     </div>
