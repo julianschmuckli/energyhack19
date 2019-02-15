@@ -2,11 +2,11 @@ $(document).ready(function () {
     initializeChart();
 });
 
+var reference = [];
+var y_axis = [];
+
 function initializeChart() {
     $.getJSON("./data/reference.json", function (data) {
-        var reference = [];
-        var y_axis = [];
-
         data.forEach(function (current) {
             var time = new Date(current.time * 1000); //Get timestamp
             var value = current.kw; //Get kW
@@ -81,4 +81,13 @@ function showChart(labels, reference, current, optimal) {
             }
         }
     });
+    document.getElementById("chart-reference-week").onclick = function (evt) {
+        var activePoints = chart.getElementsAtEvent(evt);
+        try {
+            var datapoint = reference[activePoints[0]._index]
+            initDayChart(datapoint.x); //Get the date object and start init of DayChart
+        } catch (e) {
+
+        }
+    };
 }
