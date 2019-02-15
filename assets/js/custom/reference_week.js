@@ -8,8 +8,8 @@ function initializeChart() {
     var chart = new Chart(ctx, {
         type: 'line',
         steppedline: true,
-        labels: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
         data: {
+            labels: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"], //Has to be changed to time according to timestamps
             datasets: [
                 {
                     label: "Durchschnittswert letze Periode",
@@ -23,7 +23,7 @@ function initializeChart() {
                     backgroundColor: 'red',
                     borderColor: 'red',
                     fill: false,
-                    data: [70,50, 20, 80 ,20, 90, 30]
+                    data: [70, 50, 20, 80, 20, 90, 30]
                 },
                 {
                     label: "Optimiert",
