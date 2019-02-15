@@ -1,12 +1,6 @@
-.einsparungen{
-}
-
-.chart{
-}
-
 
 .parameter{
-margin-top: 10px;
+margin-bottom: 10px;
 }
 
 .card{
@@ -19,4 +13,9 @@ margin-top: 10px;
 
 #open-parameters {
     transition: 1000ms !important;
+}
+
+.abstand{
+    margin: 5px;
+    padding: 15px;
 }
