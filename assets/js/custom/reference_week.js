@@ -12,8 +12,8 @@ function initializeChart() {
             var value = current.y;
             reference.push({x: time, y: value});
 
-            var formatted_time = "";
-            y_axis.push(time);
+            var formatted_time = (time.getDate() + "").padStart(2, "0") + "." + ((time.getMonth() + 1) + "").padStart(2, "0") + "." + time.getFullYear();
+            y_axis.push(formatted_time);
         });
 
         showChart(y_axis, reference);
