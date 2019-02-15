@@ -12,3 +12,11 @@ margin-top: 10px;
 .card{
     background-color: #f8f9fa;
 }
+
+#parameters-content {
+    display: none;
+}
+
+#open-parameters {
+    transition: 1000ms !important;
+}
