@@ -7,6 +7,7 @@ function initializeChart() {
     ctx.height = 500;
     var chart = new Chart(ctx, {
         type: 'line',
+        steppedline: true,
         labels: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
         data: {
             datasets: [
@@ -22,7 +23,7 @@ function initializeChart() {
                     backgroundColor: 'red',
                     borderColor: 'red',
                     fill: false,
-                    data: randomDataArray(7)
+                    data: [70,50, 20, 80 ,20, 90, 30]
                 },
                 {
                     label: "Optimiert",
