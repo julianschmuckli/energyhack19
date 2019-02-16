@@ -117,24 +117,6 @@ $.getJSON("./data/pricecalculate.json", function (dataPrice) {
 
 });
 
-function calcDays(data){
-    var compressedToDays = [];
-    var i = 0;
-
-
-    console.log(data.length);
-    data.forEach(function (kw) {
-
-        if(i % 24 == 0) {
-            compressedToDays.push(kw);
-        } else {
-            compressedToDays[compressedToDays.length - 1] += kw;
-        }
-        i++;
-    });
-    //console.log(compressedToDays);
-    return compressedToDays;
-}
 calcDelta();
 function calcDelta() {
 
@@ -211,7 +193,7 @@ function calcDelta() {
     });
     }
 
-    function calcOPtimierterLastgang(faktor, delta, referenz) {
+    function calcOptimierterLastgang(faktor, delta, referenz) {
 
     var oLastgang = [];
 
@@ -221,3 +203,27 @@ function calcDelta() {
 
     return oLastgang
     }
+
+
+function calcDays(data){
+    var compressedToDays = [7][24];
+    var c = 0;
+
+    for(var d = 0; d< 7; d++){
+        for(var h = 0; h<24; h++){
+            compressedToDays[d][h] = data[c]
+            c++;
+        }
+    }
+
+    compressedToDays.forEach(function (day) {
+        calcOptimierterLastgang(beta, calcDelta(), getSpotArray())
+    })
+    //console.log(compressedToDays);
+
+
+    return compressedToDays;
+}
+
+
+
