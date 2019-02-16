@@ -7,8 +7,6 @@ $(document).ready(function () {
 var weekChart = undefined;
 var weekChart_html = undefined;
 
-var reference = [];
-var y_axis = [];
 
 function showChart(labels, reference, current, optimal) {
     if (labels == undefined) {
@@ -26,13 +24,6 @@ function showChart(labels, reference, current, optimal) {
     if (optimal == undefined) {
         optimal = randomDataArray(7);
     }
-
-    //Clear canvas for data and axis update
-    weekChart_html = $("#week_chart").find(".chart-container").html();
-    var parent_element = $("#week_chart").find(".chart-container").parent();
-    $("#week_chart").find(".chart-container").remove();
-    $("#week_chart").append(weekChart_html);
-
 
     var ctx = document.getElementById("chart-reference-week").getContext('2d');
     ctx.height = 500;

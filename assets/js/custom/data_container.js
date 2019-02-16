@@ -9,11 +9,15 @@ function randomDataArray(length) { //Random number creator
     return data;
 }
 
+var reference = [];
+var y_axis = [];
+
 function initWeekChart(destroy) {
     if (destroy != undefined && destroy == true) {
         weekChart.destroy();
     }
 
+    reference = [];
     $.getJSON("./data/reference_" + getSeason() + ".json", function (data) {
         data.forEach(function (current) {
             var time = new Date(current.time * 1000); //Get timestamp

@@ -12,6 +12,7 @@ function paramRefresh() {
 
     initWeekChart(true);
 
+    location.reload(); //Sorry for that
     return false;
 }
 
