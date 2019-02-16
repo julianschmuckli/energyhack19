@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/custom/chart.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,7 +38,7 @@
             <div class="abstand card" id="parameter">
                 <h2>Parameter
                     <span class="float-right">
-                        <i id="open-parameters" class="fa fa-chevron-down fa-rotate-0"></i>
+                        <i id="open-parameters" class="fas fa-chevron-down fa-rotate-0"></i>
                     </span>
                 </h2>
                 <div id="parameters-content">
@@ -73,13 +74,20 @@
     <div class="row">
         <div class="col-md-8 chart">
             <div class="abstand card">
-                <h2>Woche <span id="chart_week_title">08.01.2014 - 14.01.2014</span></h2>
-                <div class="chart-container">
-                    <canvas id="chart-reference-week" width="400" height="200"></canvas>
+                <div id="week_chart">
+                    <h2>Woche <span id="chart_week_title">08.01.2014 - 14.01.2014</span></h2>
+                    <div class="chart-container">
+                        <canvas id="chart-reference-week" width="400" height="200"></canvas>
+                    </div>
                 </div>
-                <h2>Tag <span id="chart_day_title">08.01.2014</span></h2>
-                <div class="chart-container">
-                    <canvas id="chart-reference-day" width="400" height="200"></canvas>
+                <div id="day_chart">
+                    <h2>
+                        <span id="back_to_week_chart"><i class="fas fa-chevron-left"></i></span>
+                        <span id="chart_day_title"></span>
+                    </h2>
+                    <div class="chart-container">
+                        <canvas id="chart-reference-day" width="400" height="200"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

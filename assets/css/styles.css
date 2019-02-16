@@ -1,9 +1,8 @@
-
-.parameter{
-margin-bottom: 10px;
+.parameter {
+    margin-bottom: 10px;
 }
 
-.card{
+.card {
     background-color: #f8f9fa;
 }
 
@@ -15,10 +14,15 @@ margin-bottom: 10px;
     transition: 1000ms !important;
 }
 
-.abstand{
+.abstand {
     margin: 5px;
     padding: 15px;
 }
-#open-parameters{
+
+#open-parameters {
     padding-top: 5px;
+}
+
+#day_chart {
+    display: none;
 }

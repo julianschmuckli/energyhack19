@@ -97,4 +97,6 @@ function showDayChart(labels, reference, current, optimal) {
             }
         }
     });
+    $("#week_chart").slideUp();
+    $("#day_chart").slideDown();
 }
