@@ -22,7 +22,7 @@
                     </span>
                 </h2>
                 <div id="parameters-content">
-                    <form class="form-group row">
+                    <form class="form-group row" id="params" onsubmit="return paramRefresh();">
                         <div class="col-sm-2 col-form-label">
                             <label for="alpha-input">Alpha: </label>
                         </div>
@@ -34,16 +34,12 @@
                             <label for="alpha-input">Jahreszeit: </label>
                         </div>
                         <div class="col-sm-10">
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-secondary active">
-                                    <input type="radio" name="season" autocomplete="off"> Winter
-                                </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="season" autocomplete="off"> Sommer
-                                </label>
-                            </div>
+                            <input type="radio" id="params_season_winter" name="season" value="winter">
+                            <label for="params_season_winter">Winter</label>
+                            <input type="radio" id="params_season_summer" name="season" value="summer">
+                            <label for="params_season_summer">Sommer</label>
                         </div>
-                        <div class="col-sm-12" style="margin-top:15px;"><input type="button" class="btn btn-primary"
+                        <div class="col-sm-12" style="margin-top:15px;"><input type="submit" class="btn btn-primary"
                                                                                value="Refresh"/></div>
                     </form>
                 </div>
@@ -93,6 +89,7 @@
 <script src="assets/js/jquery-3.3.1.min.js"></script>
 <script src="assets/js/Chart.bundle.min.js"></script>
 <script src="assets/js/custom/data_container.js"></script>
+<script src="assets/js/custom/params.js"></script>
 <script src="assets/js/custom/reference_week.js"></script>
 <script src="assets/js/custom/reference_day.js"></script>
 <script src="assets/js/custom/script.js"></script>
