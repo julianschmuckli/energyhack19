@@ -16,7 +16,7 @@ function showChart(labels, reference, optimal, price) {
     }
 
     if (price == undefined) {
-        price = randomDataArray(168);
+        //price = randomDataArray(168);
     }
 
     if (optimal == undefined) {
@@ -43,13 +43,6 @@ function showChart(labels, reference, optimal, price) {
                     borderColor: 'red',
                     fill: false,
                     data: optimal
-                },
-                {
-                    label: "Delta (Preis)",
-                    backgroundColor: 'orange',
-                    borderColor: 'orange',
-                    fill: false,
-                    data: price
                 }
             ],
         },
