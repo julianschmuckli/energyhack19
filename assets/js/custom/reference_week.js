@@ -4,8 +4,9 @@ $(document).ready(function () {
     initWeekChart();
 });
 
-var reference = [];
-var y_axis = [];
+var weekChart = undefined;
+var weekChart_html = undefined;
+
 
 function showChart(labels, reference, current, optimal) {
     if (labels == undefined) {
@@ -26,9 +27,8 @@ function showChart(labels, reference, current, optimal) {
 
     var ctx = document.getElementById("chart-reference-week").getContext('2d');
     ctx.height = 500;
-    var chart = new Chart(ctx, {
+    weekChart = new Chart(ctx, {
         type: 'line',
-        steppedline: true,
         data: {
             labels: labels, //Has to be changed to time according to timestamps
             datasets: [
@@ -68,7 +68,7 @@ function showChart(labels, reference, current, optimal) {
         }
     });
     document.getElementById("chart-reference-week").onclick = function (evt) {
-        var activePoints = chart.getElementsAtEvent(evt);
+        var activePoints = weekChart.getElementsAtEvent(evt);
         try {
             var datapoint = reference[activePoints[0]._index]
             initDayChart(datapoint.x); //Get the date object and start init of DayChart
