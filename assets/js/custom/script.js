@@ -9,6 +9,10 @@ $(document).ready(function() {
         $($(".dropdown-toggle", $(this).parents()[1])[0]).html($(this).html());
         calculateBetaValue();
     });
+
+    $("#alpha-input").change(function() {
+        selectedAlpha = $("#alpha-input").val();
+    });
 });
 
 
@@ -26,6 +30,7 @@ var beta_values = [
   [0.7, 0.8, 0.9, 1.0],
 ];
 
+var selectedAlpha = 0.5;
 var beta = 0.0;
 
 function calculateBetaValue() {
@@ -36,6 +41,11 @@ function calculateBetaValue() {
     beta = (beta_values[getValueConverted(verbrauch)][getValueConverted(batterie)]);
 
 }
+
+
+
+
+
 
 //calcPreissignal(12.49, 14.42, 0.5);
 
