@@ -29,6 +29,15 @@ function initWeekChart(destroy) {
             y_axis.push(formatted_time);
         });
 
+        var first_date = reference[0].x;
+        var end_date = reference[reference.length - 1].x;
+
+        var formatted_first_date = (first_date.getDate() + "").padStart(2, "0") + "." + ((first_date.getMonth() + 1) + "").padStart(2, "0") + "." + first_date.getFullYear();
+        var formatted_end_date = (end_date.getDate() + "").padStart(2, "0") + "." + ((end_date.getMonth() + 1) + "").padStart(2, "0") + "." + end_date.getFullYear();
+
+
+        $("#chart_week_title").text(formatted_first_date + " - " + formatted_end_date);
+
         showChart(y_axis, reference);
     });
 }
