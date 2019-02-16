@@ -18,7 +18,10 @@ function initWeekChart(destroy) {
     }
 
     reference = [];
-    $.getJSON("./data/reference_" + getSeason() + ".json", function (data) {
+
+    setTimeout(function () {
+        var data = f_reference_data;
+
         data.forEach(function (current) {
             var time = new Date(current.time * 1000); //Get timestamp
             var value = current.kw; //Get kW
@@ -38,8 +41,15 @@ function initWeekChart(destroy) {
 
         $("#chart_week_title").text(formatted_first_date + " - " + formatted_end_date);
 
-        showChart(y_axis, reference);
-    });
+        var optimised = calcOptimisedData(data);
+        var new_optimised = [];
+
+        optimised.forEach(function (element) {
+            new_optimised.push(element / 5);
+        });
+
+        showChart(y_axis, reference, new_optimised);
+    }, 1000);
 }
 
 function initDayChart(date) { //Format: Month / Day / Year
