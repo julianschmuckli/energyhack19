@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    initListeners();
     initializeChart();
 });
 
@@ -90,4 +91,11 @@ function showChart(labels, reference, current, optimal) {
 
         }
     };
+}
+
+function initListeners() {
+    $("#back_to_week_chart").on('click', function () {
+        $("#day_chart").slideUp();
+        $("#week_chart").slideDown();
+    });
 }
