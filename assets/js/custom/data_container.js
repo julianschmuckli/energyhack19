@@ -9,9 +9,12 @@ function randomDataArray(length) { //Random number creator
     return data;
 }
 
-function initWeekChart() {
-    //TODO Check global param if is winter or summer
-    $.getJSON("./data/reference.json", function (data) {
+function initWeekChart(destroy) {
+    if (destroy != undefined && destroy == true) {
+        weekChart.destroy();
+    }
+
+    $.getJSON("./data/reference_" + getSeason() + ".json", function (data) {
         data.forEach(function (current) {
             var time = new Date(current.time * 1000); //Get timestamp
             var value = current.kw; //Get kW
@@ -36,8 +39,7 @@ function initDayChart(date) { //Format: Month / Day / Year
     var active_day = (new Date(day)).getTime() / 1000;
     var active_day_end = (new Date(day)).getTime() / 1000 + 86400;
 
-    //TODO Check global param if is winter or summer
-    $.getJSON("./data/reference.json", function (data) {
+    $.getJSON("./data/reference_" + getSeason() + ".json", function (data) {
         var reference = [];
         var y_axis = [];
 
