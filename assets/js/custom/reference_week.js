@@ -12,15 +12,15 @@ function showChart(labels, reference, optimal, price) {
     }
 
     if (reference == undefined) {
-        reference = randomDataArray(7);
+        reference = randomDataArray(168);
     }
 
     if (price == undefined) {
-        price = randomDataArray(7);
+        price = randomDataArray(168);
     }
 
     if (optimal == undefined) {
-        optimal = randomDataArray(7);
+        optimal = randomDataArray(168);
     }
 
     var ctx = document.getElementById("chart-reference-week").getContext('2d');
