@@ -1,26 +1,10 @@
 $(document).ready(function () {
     initListeners();
-    initializeChart();
+    initWeekChart();
 });
 
 var reference = [];
 var y_axis = [];
-
-function initializeChart() {
-    $.getJSON("./data/reference.json", function (data) {
-        data.forEach(function (current) {
-            var time = new Date(current.time * 1000); //Get timestamp
-            var value = current.kw; //Get kW
-            reference.push({x: time, y: value});
-
-            var formatted_time = (time.getDate() + "").padStart(2, "0") + "." + ((time.getMonth() + 1) + "").padStart(2, "0") + "." + time.getFullYear()
-                + " " + (time.getHours() + "").padStart(2, "0") + ":" + (time.getMinutes() + "").padStart(2, "0");
-            y_axis.push(formatted_time);
-        });
-
-        showChart(y_axis, reference);
-    });
-}
 
 function showChart(labels, reference, current, optimal) {
     if (labels == undefined) {
