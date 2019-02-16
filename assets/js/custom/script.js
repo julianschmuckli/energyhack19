@@ -1,3 +1,5 @@
+console.log(calcOptimisedData(getReferenceData()));
+
 $(document).ready(function() {
 
     $("#open-parameters").click(function() {
@@ -54,32 +56,9 @@ function calcPreissignal(htnt, spot, alpha) {
 return alpha*spot+(1-alpha)*htnt;
 }
 
-function calcjedeViert(data) {
-
-        //console.log(data.length / 4);
-
-        var compressedToHours = [];
-        var i = 0;
-        data.forEach(function (kw) {
-            var time = kw.time;
-            var kw = kw.kw;
-
-            if(i % 4 == 0) {
-                compressedToHours.push({timestamp: time, kw: kw});
-            } else {
-                compressedToHours[compressedToHours.length - 1].kw += kw;
-            }
-            i++;
-        });
-        //console.log(compressedToHours);
-        return compressedToHours;
-}
-
 var preisMitAlpha = [];
 
 $.getJSON("./data/pricecalculate.json", function (dataPrice) {
-
-
 
     var time = 0;
     var kw = 0;
@@ -129,33 +108,7 @@ $.getJSON("./data/pricecalculate.json", function (dataPrice) {
 
 calcDelta();
 function calcDelta() {
-
-    var arrayTets = [
-        15.47,
-        14.22,
-        13.35,
-        12.54,
-        12.26,
-        13.51,
-        16.23,
-        18.55,
-        19.62,
-        19.45,
-        18.87,
-        18.59,
-        17.75,
-        17.23,
-        16.88,
-        16.77,
-        17.12,
-        18.41,
-        20.17,
-        20.79,
-        19.73,
-        18.89,
-        18.49,
-        16.85
-    ]
+    var data = getReferenceData();
     var preissignal = 0;
     var standartAbweichung = 0;
     var delta = [];
@@ -167,10 +120,10 @@ function calcDelta() {
 
         var sum = 0;
 
-        for( var i = 0; i < arrayTets.length; i++ ){
-            sum += arrayTets[i]; //don't forget to add the base
+        for( var i = 0; i < data.length; i++ ){
+            sum += data[i]; //don't forget to add the base
         }
-        var avg = sum/arrayTets.length;
+        var avg = sum/data.length;
 
         preissignal = calcPreissignal(htnt, spot, 0.5);
 
@@ -179,7 +132,7 @@ function calcDelta() {
         });
 
     });
-    console.log(delta);
+
     return delta;
 }
 
@@ -195,12 +148,15 @@ function calcDelta() {
         return Math.sqrt(result / len);
     }
 
+
     function getSpotArray() {
+    var spotArray= [];
         $.getJSON("./data/pricecalculate.json", function (dataPrice) {
             dataPrice.forEach(function (price) {
                 spotArray.push(price.brkpwh);
             });
     });
+        return spotArray;
     }
 
     function calcOptimierterLastgang(faktor, delta, referenz) {
@@ -215,8 +171,12 @@ function calcDelta() {
     }
 
 
-function calcDays(data){
+function calcOptimisedData(data){
+    console.log(data);
     var compressedToDays = [7][24];
+    var optimisedSevenDays = [7][24];
+    var optimisedData = [];
+
     var c = 0;
 
     for(var d = 0; d< 7; d++){
@@ -226,13 +186,42 @@ function calcDays(data){
         }
     }
 
-    compressedToDays.forEach(function (day) {
-        calcOptimierterLastgang(beta, calcDelta(), getSpotArray())
-    })
+    for(var u = 0; u<7; u++){
+        var day = [];
+        day = calcOptimierterLastgang(beta, calcDelta(), compressedToDays[u]);
+        optimisedSevenDays[u] = day;
+    }
+
+    for(var d = 0; d< 7; d++){
+        for(var h = 0; h<24; h++){
+            optimisedData.push(compressedToDays[d][h]);
+        }
+    }
+
     //console.log(compressedToDays);
+    return optimisedData;
+}
 
 
-    return compressedToDays;
+function getReferenceData() {
+    var summerData= [];
+    var winterData = [];
+    if(getSeason() === "summer"){
+        $.getJSON("./data/reference_summer.json", function (refSummer) {
+            refSummer.forEach(function (data) {
+                summerData.push(data.kw);
+            });
+        });
+        return summerData;
+
+    }else{
+        $.getJSON("./data/reference_winter.json", function (refWinter) {
+            refWinter.forEach(function (data) {
+                winterData.push(data.kw);
+            });
+        });
+        return winterData;
+    }
 }
 
 
