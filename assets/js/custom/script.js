@@ -65,9 +65,11 @@ function calcjedeViert(data) {
         return compressedToHours;
 }
 
+var preisMitAlpha = [];
+
 $.getJSON("./data/pricecalculate.json", function (dataPrice) {
 
-    console.log(math.std(2,4,6));
+
 
     var time = 0;
     var kw = 0;
@@ -87,7 +89,7 @@ $.getJSON("./data/pricecalculate.json", function (dataPrice) {
         dataPrice.forEach(function (price) {
             var htnt = price.rpkwh;
             var spot = price.brkpwh;
-            console.log(htnt);
+            //console.log(htnt);
 
             //console.log(faktor * spot + (1-faktor)*htnt)
             preissignal = calcPreissignal(htnt, spot, faktor);
@@ -97,15 +99,16 @@ $.getJSON("./data/pricecalculate.json", function (dataPrice) {
                 //console.log(kwVerbraucht[i]['kw'] * htnt);
                 normalpris = kwVerbraucht[i]['kw'] * htnt;
                 prisMitFaktor = kwVerbraucht[i]['kw'] * preissignal;
-                console.log("pris mit htnt bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ normalpris);
-                console.log("pris mit mit faktor vo "+ faktor + "bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ prisMitFaktor);
+                //console.log("pris mit htnt bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ normalpris);
+                //console.log("pris mit mit faktor vo "+ faktor + "bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ prisMitFaktor);
                 kwPreisHTNT.push(normalpris);
                 kwPreisPreissignal.push(prisMitFaktor);
+                preisMitAlpha = kwPreisPreissignal;
 
             }
 
         });
-        calcDays(kwPreisHTNT);
+
     });
 
 
@@ -121,8 +124,6 @@ function calcDays(data){
 
     console.log(data.length);
     data.forEach(function (kw) {
-        //var time = kw.time;
-        //var kw = kw.kw;
 
         if(i % 24 == 0) {
             compressedToDays.push(kw);
@@ -131,6 +132,92 @@ function calcDays(data){
         }
         i++;
     });
-    console.log(compressedToDays);
+    //console.log(compressedToDays);
     return compressedToDays;
 }
+calcDelta();
+function calcDelta() {
+
+    var arrayTets = [
+        15.47,
+        14.22,
+        13.35,
+        12.54,
+        12.26,
+        13.51,
+        16.23,
+        18.55,
+        19.62,
+        19.45,
+        18.87,
+        18.59,
+        17.75,
+        17.23,
+        16.88,
+        16.77,
+        17.12,
+        18.41,
+        20.17,
+        20.79,
+        19.73,
+        18.89,
+        18.49,
+        16.85
+    ]
+    var preissignal = 0;
+    var standartAbweichung = 0;
+    var delta = [];
+
+    $.getJSON("./data/pricecalculate.json", function (dataPrice) {
+        dataPrice.forEach(function (price) {
+            var htnt = price.rpkwh;
+            var spot = price.brkpwh;
+
+        var sum = 0;
+
+        for( var i = 0; i < arrayTets.length; i++ ){
+            sum += arrayTets[i]; //don't forget to add the base
+        }
+        var avg = sum/arrayTets.length;
+
+        preissignal = calcPreissignal(htnt, spot, 0.5);
+
+        delta.push((preissignal - avg)/ stabw(arrayTets)/5);
+
+        });
+
+    });
+    console.log(delta);
+    return delta;
+}
+
+
+    var stabw = function(arrayS) {
+        var len = 0;
+        var sum = arrayS.reduce(function(pv, cv) { ++len; return pv + cv; }, 0);
+        var mean = sum / len;
+        var result = 0;
+        for (var i = 0; i < len; i++)
+            result += Math.pow(arrayS[i] - mean, 2);
+        len = (len == 1) ? len : len - 1;
+        return Math.sqrt(result / len);
+    }
+
+    function getSpotArray() {
+        $.getJSON("./data/pricecalculate.json", function (dataPrice) {
+            dataPrice.forEach(function (price) {
+                spotArray.push(price.brkpwh);
+            });
+    });
+    }
+
+    function calcOPtimierterLastgang(faktor, delta, referenz) {
+
+    var oLastgang = [];
+
+    for(var i = 0; i< delta.length; i++){
+        oLastgang.push((referenz[i]-faktor)*delta[i]);
+    }
+
+    return oLastgang
+    }
