@@ -1,16 +1,12 @@
 var dayChart = undefined;
 
-function showDayChart(labels, reference, current, optimal) {
+function showDayChart(labels, reference, optimal) {
     if (labels == undefined) {
         labels = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
     }
 
     if (reference == undefined) {
         reference = randomDataArray(7);
-    }
-
-    if (current == undefined) {
-        current = randomDataArray(7);
     }
 
     if (optimal == undefined) {
@@ -33,23 +29,16 @@ function showDayChart(labels, reference, current, optimal) {
             labels: labels, //Has to be changed to time according to timestamps
             datasets: [
                 {
-                    label: "Referenz Woche",
+                    label: "Referenz-Lastgang",
                     backgroundColor: 'green',
                     borderColor: 'green',
                     fill: false,
                     data: reference
                 },
                 {
-                    label: "Aktuelle Woche",
+                    label: "Lastgang optimiert",
                     backgroundColor: 'red',
                     borderColor: 'red',
-                    fill: false,
-                    data: current
-                },
-                {
-                    label: "Optimiert",
-                    backgroundColor: 'orange',
-                    borderColor: 'orange',
                     fill: false,
                     data: optimal
                 }

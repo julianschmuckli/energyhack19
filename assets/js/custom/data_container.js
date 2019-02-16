@@ -45,11 +45,11 @@ function initWeekChart(destroy) {
         var new_optimised = [];
 
         optimised.forEach(function (element) {
-            new_optimised.push(element / 5);
+            new_optimised.push(element / 4);
         });
 
         showChart(y_axis, reference, new_optimised);
-    }, 1000);
+    }, 200);
 }
 
 function initDayChart(date) { //Format: Month / Day / Year
@@ -62,22 +62,28 @@ function initDayChart(date) { //Format: Month / Day / Year
     var active_day = (new Date(day)).getTime() / 1000;
     var active_day_end = (new Date(day)).getTime() / 1000 + 86400;
 
-    $.getJSON("./data/reference_" + getSeason() + ".json", function (data) {
-        var reference = [];
-        var y_axis = [];
+    var data = f_reference_data
+    var reference = [];
+    var y_axis = [];
 
-        data.forEach(function (current) {
-            //console.log(current.time + " - " + active_day + " - " + active_day_end);
-            if (current.time >= active_day && current.time < active_day_end) {
-                var time = new Date(current.time * 1000); //Get timestamp
-                var value = current.kw; //Get kWh
-                reference.push({x: time, y: value});
+    data.forEach(function (current) {
+        //console.log(current.time + " - " + active_day + " - " + active_day_end);
+        if (current.time >= active_day && current.time < active_day_end) {
+            var time = new Date(current.time * 1000); //Get timestamp
+            var value = current.kw; //Get kWh
+            reference.push({x: time, y: value});
 
-                var formatted_time = (time.getHours() + "").padStart(2, "0") + ":" + (time.getMinutes() + "").padStart(2, "0");
-                y_axis.push(formatted_time);
-            }
-        });
-
-        showDayChart(y_axis, reference);
+            var formatted_time = (time.getHours() + "").padStart(2, "0") + ":" + (time.getMinutes() + "").padStart(2, "0");
+            y_axis.push(formatted_time);
+        }
     });
+
+    var optimised = calcOptimisedData(data);
+    var new_optimised = [];
+
+    optimised.forEach(function (element) {
+        new_optimised.push(element / 4);
+    });
+
+    showDayChart(y_axis, reference, new_optimised);
 }
