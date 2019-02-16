@@ -5,10 +5,8 @@ $(document).ready(function () {
 });
 
 var weekChart = undefined;
-var weekChart_html = undefined;
 
-
-function showChart(labels, reference, current, optimal) {
+function showChart(labels, reference, optimal, price) {
     if (labels == undefined) {
         labels = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
     }
@@ -17,8 +15,8 @@ function showChart(labels, reference, current, optimal) {
         reference = randomDataArray(7);
     }
 
-    if (current == undefined) {
-        current = randomDataArray(7);
+    if (price == undefined) {
+        price = randomDataArray(7);
     }
 
     if (optimal == undefined) {
@@ -33,25 +31,25 @@ function showChart(labels, reference, current, optimal) {
             labels: labels, //Has to be changed to time according to timestamps
             datasets: [
                 {
-                    label: "Referenz Woche",
+                    label: "Referenz-Lastgang",
                     backgroundColor: 'green',
                     borderColor: 'green',
                     fill: false,
                     data: reference
                 },
                 {
-                    label: "Aktuelle Woche",
+                    label: "Lastgang optimiert",
                     backgroundColor: 'red',
                     borderColor: 'red',
                     fill: false,
-                    data: current
+                    data: optimal
                 },
                 {
-                    label: "Optimiert",
+                    label: "Delta (Preis)",
                     backgroundColor: 'orange',
                     borderColor: 'orange',
                     fill: false,
-                    data: optimal
+                    data: price
                 }
             ],
         },
