@@ -37,6 +37,8 @@ function calcjedeViert(data) {
 
 $.getJSON("./data/pricecalculate.json", function (dataPrice) {
 
+    console.log(math.std(2,4,6));
+
     var time = 0;
     var kw = 0;
     var kwVerbraucht = []
@@ -44,6 +46,8 @@ $.getJSON("./data/pricecalculate.json", function (dataPrice) {
     var faktor = 0.3;
     var normalpris;
     var prisMitFaktor;
+    var kwPreisHTNT = [];
+    var kwPreisPreissignal = [];
     //console.log(kwVerbraucht);
     //console.log(data);
 
@@ -65,12 +69,38 @@ $.getJSON("./data/pricecalculate.json", function (dataPrice) {
                 prisMitFaktor = kwVerbraucht[i]['kw'] * preissignal;
                 console.log("pris mit htnt bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ normalpris);
                 console.log("pris mit mit faktor vo "+ faktor + "bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ prisMitFaktor);
+                kwPreisHTNT.push(normalpris);
+                kwPreisPreissignal.push(prisMitFaktor);
 
             }
 
         });
+        calcDays(kwPreisHTNT);
     });
 
 
 
+
+
 });
+
+function calcDays(data){
+    var compressedToDays = [];
+    var i = 0;
+
+
+    console.log(data.length);
+    data.forEach(function (kw) {
+        //var time = kw.time;
+        //var kw = kw.kw;
+
+        if(i % 24 == 0) {
+            compressedToDays.push(kw);
+        } else {
+            compressedToDays[compressedToDays.length - 1] += kw;
+        }
+        i++;
+    });
+    console.log(compressedToDays);
+    return compressedToDays;
+}
