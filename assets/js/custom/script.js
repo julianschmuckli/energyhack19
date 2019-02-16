@@ -1,20 +1,18 @@
 console.log(calcOptimisedData(getReferenceData()));
 
-$(document).ready(function() {
+$("#open-parameters").click(function() {
+    $("#parameters-content").slideToggle();
+    $("#open-parameters").toggleClass("fa-rotate-180");
+});
 
-    $("#open-parameters").click(function() {
-        $("#parameters-content").slideToggle();
-        $("#open-parameters").toggleClass("fa-rotate-180");
-    });
+$(".dropdown-item").click(function() {
+    console.log("Hello");
+    $($(".dropdown-toggle", $(this).parents()[1])[0]).html($(this).html());
+    calculateBetaValue();
+});
 
-    $(".dropdown-item").click(function() {
-        $($(".dropdown-toggle", $(this).parents()[1])[0]).html($(this).html());
-        calculateBetaValue();
-    });
-
-    $("#alpha-input").change(function() {
-        selectedAlpha = $("#alpha-input").val();
-    });
+$("#alpha-input").change(function() {
+    selectedAlpha = $("#alpha-input").val();
 });
 
 
