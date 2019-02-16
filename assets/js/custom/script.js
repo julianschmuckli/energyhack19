@@ -7,23 +7,22 @@ $(document).ready(function() {
 
 });
 
-calcPreissignal(12.49, 14.42, 0.5);
+//calcPreissignal(12.49, 14.42, 0.5);
 
 function calcPreissignal(htnt, spot, alpha) {
-console.log(alpha*spot+(1-alpha)*htnt);
+//console.log(alpha*spot+(1-alpha)*htnt);
+return alpha*spot+(1-alpha)*htnt;
 }
 
-function calcjedeViert() {
+function calcjedeViert(data) {
 
-    $.getJSON("./data/reference.json", function (data) {
-
-        console.log(data.length / 4);
+        //console.log(data.length / 4);
 
         var compressedToHours = [];
         var i = 0;
         data.forEach(function (kw) {
-            var time = kw.x;
-            var kw = kw.y;
+            var time = kw.time;
+            var kw = kw.kw;
 
             if(i % 4 == 0) {
                 compressedToHours.push({timestamp: time, kw: kw});
@@ -32,37 +31,46 @@ function calcjedeViert() {
             }
             i++;
         });
-        console.log(compressedToHours);
-    });
+        //console.log(compressedToHours);
+        return compressedToHours;
 }
-calcjedeViert();
 
-/*
-var HTNT;
-var SPOT;
-var faktor = 1;
-var reduzierterPreis;
+$.getJSON("./data/pricecalculate.json", function (dataPrice) {
 
-$.getJSON("./data/pricecalculate.json", function (data) {
-
-    data.forEach(function (price) {
-        HTNT = price.rpkwh;
-        SPOT = price.brkpwh;
-    });
+    var time = 0;
+    var kw = 0;
+    var kwVerbraucht = []
+    var preissignal;
+    var faktor = 0.3;
+    var normalpris;
+    var prisMitFaktor;
+    //console.log(kwVerbraucht);
+    //console.log(data);
 
     $.getJSON("./data/reference.json", function (data) {
+        kwVerbraucht = calcjedeViert(data);
 
-        data.forEach(function (kw) {
-            var time = kw.x;
-            var kw = kw.y;
+        dataPrice.forEach(function (price) {
+            var htnt = price.rpkwh;
+            var spot = price.brkpwh;
+            console.log(htnt);
 
-            console.log(HTNT, SPOT, time, kw, faktor);
+            //console.log(faktor * spot + (1-faktor)*htnt)
+            preissignal = calcPreissignal(htnt, spot, faktor);
 
+            for(var i = 0; i<kwVerbraucht.length; i++){
+                //console.log(price.rpkwh);
+                //console.log(kwVerbraucht[i]['kw'] * htnt);
+                normalpris = kwVerbraucht[i]['kw'] * htnt;
+                prisMitFaktor = kwVerbraucht[i]['kw'] * preissignal;
+                console.log("pris mit htnt bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ normalpris);
+                console.log("pris mit mit faktor vo "+ faktor + "bi verbruch vo "+kwVerbraucht[i]['kw']+" chosted: "+ prisMitFaktor);
 
-
-            reduzierterPreis = faktor * SPOT + (1-faktor)*(kw*HTNT);
-            console.log(reduzierterPreis);
+            }
 
         });
     });
-});*/
+
+
+
+});
