@@ -10,3 +10,7 @@ function paramRefresh() {
 
     return false;
 }
+
+function isSummer() {
+    return global_params.season === 'summer';
+}
