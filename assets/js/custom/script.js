@@ -5,7 +5,37 @@ $(document).ready(function() {
         $("#open-parameters").toggleClass("fa-rotate-180");
     });
 
+    $(".dropdown-item").click(function() {
+        $($(".dropdown-toggle", $(this).parents()[1])[0]).html($(this).html());
+        calculateBetaValue();
+    });
 });
+
+
+function getValueConverted(val) {
+    if(val == "Klein") return 1;
+    if(val == "Mittel") return 2;
+    if(val == "Gross") return 3;
+    return 0;
+}
+
+var beta_values = [
+  [0.0, 0.1, 0.2, 0.3],
+  [0.2, 0.3, 0.4, 0.6],
+  [0.4, 0.6, 0.7, 0.8],
+  [0.7, 0.8, 0.9, 1.0],
+];
+
+var beta = 0.0;
+
+function calculateBetaValue() {
+    var verbrauch = $("#verbrauchDropDown").html();
+    var batterie = $("#batterieDropDown").html();
+
+    console.log(beta_values[getValueConverted(verbrauch)][getValueConverted(batterie)]);
+    beta = (beta_values[getValueConverted(verbrauch)][getValueConverted(batterie)]);
+
+}
 
 //calcPreissignal(12.49, 14.42, 0.5);
 
